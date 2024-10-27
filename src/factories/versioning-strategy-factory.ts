@@ -17,6 +17,7 @@ import {DefaultVersioningStrategy} from '../versioning-strategies/default';
 import {AlwaysBumpPatch} from '../versioning-strategies/always-bump-patch';
 import {AlwaysBumpMinor} from '../versioning-strategies/always-bump-minor';
 import {AlwaysBumpMajor} from '../versioning-strategies/always-bump-major';
+import {AlwaysBumpUntilMax} from '../versioning-strategies/always-bump-until-max';
 import {ServicePackVersioningStrategy} from '../versioning-strategies/service-pack';
 import {GitHub} from '../github';
 import {ConfigurationError} from '../errors';
@@ -42,6 +43,7 @@ const versioningTypes: Record<string, VersioningStrategyBuilder> = {
   'always-bump-patch': options => new AlwaysBumpPatch(options),
   'always-bump-minor': options => new AlwaysBumpMinor(options),
   'always-bump-major': options => new AlwaysBumpMajor(options),
+  'always-bump-until-max': options => new AlwaysBumpUntilMax(options),
   'service-pack': options => new ServicePackVersioningStrategy(options),
   prerelease: options => new PrereleaseVersioningStrategy(options),
 };
