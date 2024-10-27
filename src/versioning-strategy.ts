@@ -92,50 +92,13 @@ export class PatchVersionUpdate implements VersionUpdater {
 }
 
 /**
- * This VersionUpdater increments versions until it hits 9, then resets to 0.
- */
-export class MaxVersionUpdate implements VersionUpdater {
-  /**
-   * Returns the new bumped version
-   *
-   * @param {Version} version The current version
-   * @returns {Version} The bumped version
-   */
-  bump(version: Version): Version {
-    let newMajor = version.major;
-    let newMinor = version.minor;
-    let newPatch = version.patch + 1;
-
-    if (newPatch > 9) {
-      newPatch = 0;
-      newMinor += 1;
-
-      if (newMinor > 9) {
-        newMinor = 0;
-        newMajor += 1;
-      }
-    }
-
-    return new Version(
-      newMajor,
-      newMinor,
-      newPatch,
-      version.preRelease,
-      version.build
-    );
-  }
-}
-
-/**
  * This VersionUpdater sets the version to a specific version.
  */
 export class CustomVersionUpdate implements VersionUpdater {
   private versionString: string;
-
   constructor(versionString: string) {
     this.versionString = versionString;
   }
-
   /**
    * Returns the new bumped version. This version is specified
    * at initialization.
