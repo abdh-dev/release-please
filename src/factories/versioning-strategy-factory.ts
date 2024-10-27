@@ -51,15 +51,24 @@ const versioningTypes: Record<string, VersioningStrategyBuilder> = {
 export function buildVersioningStrategy(
   options: VersioningStrategyFactoryOptions
 ): VersioningStrategy {
-  const builder = versioningTypes[options.type || 'default'];
-  if (builder) {
-    return builder(options);
-  }
+
+  const allowedTypes = Object.keys(versioningTypes).join(', ');
+
   throw new ConfigurationError(
-    `Unknown versioning strategy type: ${options.type}`,
+    `Unknown versioning strategy type: ${options.type}, ${allowedTypes}`,
     'core',
     `${options.github.repository.owner}/${options.github.repository.repo}`
   );
+
+  // const builder = versioningTypes[options.type || 'default'];
+  // if (builder) {
+  //   return builder(options);
+  // }
+  // throw new ConfigurationError(
+  //   `Unknown versioning strategy type: ${options.type}`,
+  //   'core',
+  //   `${options.github.repository.owner}/${options.github.repository.repo}`
+  // );
 }
 
 export function registerVersioningStrategy(
